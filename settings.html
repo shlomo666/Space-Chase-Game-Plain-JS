@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Settings</title>
+    <style>
+        .docCenter {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            position: fixed;
+            margin: auto;
+            display: table;
+            width: 650px;
+            height: auto;
+            color:gold;
+        }
+        .myButton {
+            -moz-box-shadow: 0px 10px 7px 0px #333333;
+            -webkit-box-shadow: 0px 10px 7px 0px #333333;
+            box-shadow: 0px 10px 7px 0px #333333;
+            background-color: transparent;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: 1px solid #ffaa22;
+            display: inline-block;
+            cursor: pointer;
+            color: #333333;
+            font-family: Arial;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px 24px;
+            text-decoration: none;
+            text-shadow: 0px 0px 0px #ffee66;
+        }
+            .myButton:hover {
+                background-color: rgba(128, 128, 128, 0.24)
+            }
+            .myButton:active {
+                position: relative;
+                top: 5px;
+                -moz-box-shadow: 0px 5px 7px 0px #333333;
+                -webkit-box-shadow: 0px 5px 7px 0px #333333;
+                box-shadow: 0px 5px 7px 0px #333333;
+            }
+    </style>
+    <script>
+        document.onkeydown = function (event) {
+            if (event.keyCode == 27)
+                window.location = "index.html";
+        }
+    </script>
+</head>
+<body style="background: url('Images/Space GIF - Right to left.gif');">
+    <table class="docCenter" style="font-size:larger;" border="1">
+    <tr>
+        <td>Player spaceship horizontal speed: </td>
+        <td>
+            <input id="mainSpaceshipHSpeed_Slider" type="range" value="6" min="1" max="22" step="1" style="width:300px;" oninput="showMainSpaceshipHSpeedValue(this.value)"/>
+        </td>
+        <td id="mainSpaceshipHSpeed">6</td>
+    </tr>
+    <tr>
+        <td>Player spaceship vertical speed: </td>
+        <td>
+            <input id="mainSpaceshipVSpeed_Slider" type="range" value="6" min="1" max="22" step="1" style="width:300px;" oninput="showMainSpaceshipVSpeedValue(this.value)" />
+        </td>
+        <td id="mainSpaceshipVSpeed">6</td>
+    </tr>
+    <tr>
+        <td>Enemy spaceship vertical speed: </td>
+        <td>
+            <input id="enemySpaceshipVSpeed_Slider" type="range" value="3" min="1" max="22" step="1" style="width:300px;" oninput="showEnemySpaceshipVSpeedValue(this.value)" />
+        </td>
+        <td id="enemySpaceshipVSpeed">3</td>
+    </tr>
+    <tr>
+        <td>Spaceships Width: </td>
+        <td>
+            <input id="spaceshipsWidth_Slider" type="range" value="50" min="30" max="200" step="10" style="width:300px;" oninput="showSpaceshipsWidthValue(this.value)" />
+        </td>
+        <td id="spaceshipsWidth"></td>
+    </tr>
+    <tr>
+        <td>Your best game: </td>
+        <td id="bestGameDate"></td>
+        <td id="bestGamePoints">1250 points</td>
+    </tr>
+    <tr>
+        <td>
+            <span class="myButton" onclick="resetDefaultSettings()">Reset Default Settings</span>
+        </td>
+    </tr>
+    </table>
+    
+    
+
+    <audio src="Sounds/somewhere-out-in-space.mp3" autoplay="autoplay"></audio>
+
+    <script>
+        function showMainSpaceshipHSpeedValue(val) {
+            mainSpaceshipHSpeed.innerText = val;
+            localStorage.mainSpaceshipHSpeed = val;
+        }
+        function showMainSpaceshipVSpeedValue(val) {
+            mainSpaceshipVSpeed.innerText = val;
+            localStorage.mainSpaceshipVSpeed = val;
+        }
+        function showEnemySpaceshipVSpeedValue(val) {
+            enemySpaceshipVSpeed.innerText = val;
+            localStorage.enemySpaceshipVSpeed = val;
+        }
+        function showSpaceshipsWidthValue(val) {
+            spaceshipsWidth.innerText = val;
+            localStorage.spaceshipsWidth = val;
+        }
+        function resetDefaultSettings() {
+            mainSpaceshipHSpeed.innerText = 6;
+            mainSpaceshipHSpeed_Slider.value = 6;
+            localStorage.mainSpaceshipHSpeed = 6;
+
+            mainSpaceshipVSpeed.innerText = 6;
+            mainSpaceshipVSpeed_Slider.value = 6;
+            localStorage.mainSpaceshipVSpeed = 6;
+
+            enemySpaceshipVSpeed.innerText = 3;
+            enemySpaceshipVSpeed_Slider.value = 3;
+            localStorage.enemySpaceshipVSpeed = 3;
+
+            spaceshipsWidth.innerText = 50;
+            spaceshipsWidth_Slider.value = 50;
+            localStorage.spaceshipsWidth = 50;
+        }
+    </script>
+    <script>
+        window.addEventListener('load', function () { // on page load
+            // Get from memory - Main Spaceship horizotal Speed
+            if (!localStorage.mainSpaceshipHSpeed)
+                localStorage.mainSpaceshipHSpeed = 6;
+            mainSpaceshipHSpeed.innerText = localStorage.mainSpaceshipHSpeed;
+            mainSpaceshipHSpeed_Slider.value = localStorage.mainSpaceshipHSpeed;
+
+            // Get from memory - Main Spaceship vertical Speed
+            if (!localStorage.mainSpaceshipVSpeed)
+                localStorage.mainSpaceshipVSpeed = 6;
+            mainSpaceshipVSpeed.innerText = localStorage.mainSpaceshipVSpeed;
+            mainSpaceshipVSpeed_Slider.value = localStorage.mainSpaceshipVSpeed;
+
+            // Get from memory - Enemy Spaceship vertical Speed
+            if (!localStorage.enemySpaceshipVSpeed)
+                localStorage.enemySpaceshipVSpeed = 3;
+            enemySpaceshipVSpeed.innerText = localStorage.enemySpaceshipVSpeed;
+            enemySpaceshipVSpeed_Slider.value = localStorage.enemySpaceshipVSpeed;
+
+            // Get from memory - Best Game Date
+            if (!localStorage.bestGameDate)
+                localStorage.bestGameDate = "Never played before";
+            bestGameDate.innerText = localStorage.bestGameDate;
+
+            // Get from memory - Best Game Points
+            if (!localStorage.bestGamePoints)
+                localStorage.bestGamePoints = 0;
+            bestGamePoints.innerText = localStorage.bestGamePoints;
+
+            // Get from memory - Spaceships Width
+            if (!localStorage.spaceshipsWidth)
+                localStorage.spaceshipsWidth = 50;
+            spaceshipsWidth.innerText = localStorage.spaceshipsWidth;
+            spaceshipsWidth_Slider.value = localStorage.spaceshipsWidth;
+        }, false);
+    </script>
+</body>
+</html>

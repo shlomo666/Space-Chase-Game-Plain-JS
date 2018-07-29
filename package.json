@@ -1,0 +1,15 @@
+{
+  "name": "spacecarft_js_2018",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Explosion.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "path": "^0.12.7",
+    "webpack": "^2.3.3"
+  }
+}

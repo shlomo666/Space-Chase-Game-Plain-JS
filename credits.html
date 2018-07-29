@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Credits</title>
+    <style>
+        #titles {
+            position: absolute;
+            width: 18em;
+            height: 50em;
+            bottom: 0;
+            left: 50%;
+            margin-left: -9em;
+            font-size: 350%;
+            font-weight: bold;
+            text-align:center;
+            overflow: hidden;
+            transform-origin: 50% 100%;
+            transform: perspective(300px) rotateX(15deg);
+        }
+            #titles:after {
+                position: absolute;
+                content: ' ';
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 60%;
+                background-image: linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+                pointer-events: none;
+            }
+        #titlecontent {
+            position: absolute;
+            top: 100%;
+            animation: scroll 100s linear 4s infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                top: 100%;
+            }
+
+            100% {
+                top: -100%;
+            }
+        }
+    </style>
+</head>
+<body style="background: url('Images/Space GIF - Right to left.gif');">
+    <div id="titles">
+        <div id="titlecontent">
+            <table id="table" style="color:yellow;">
+            </table>
+</div>
+    </div>
+
+    <audio id="backSound" src="Sounds/Star Wars Theme Song.mp3" autoplay="autoplay"></audio>
+
+    <script>
+        window.addEventListener('load', function () { // on page load
+            document.getElementById("backSound").volume = 0.5;
+        }, false);
+        document.onkeydown = function (event) {
+            if (event.keyCode == 27)
+                window.location = "index.html";
+        }
+    </script>
+    <script>
+        for (var i = 0; i < 20; i++) {
+            document.getElementById("table").innerHTML += "<tr><td>Author:</td> <td>Shlomo</td></tr>";
+            document.getElementById("table").innerHTML += "<tr><td>Writer:</td> <td>Shlomo</td></tr>";
+            document.getElementById("table").innerHTML += " <tr><td>Programmer:</td> <td>Shlomo</td></tr>";
+            document.getElementById("table").innerHTML += "<tr><td>Sounds:</td> <td>Shlomo</td></tr>";
+            document.getElementById("table").innerHTML += " <tr><td>Images:</td> <td>Shlomo</td></tr>";
+            document.getElementById("table").innerHTML += "<tr><td>Animation:</td> <td>Shlomo</td></tr>";
+            document.getElementById("table").innerHTML += "<tr><td>Everything else:&nbsp;</td> <td>Shlomo</td></tr>";
+            for (var j = 0; j < 8; j++) {
+                document.getElementById("table").innerHTML += "<tr><td>&nbsp;</td></tr>";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <title>Menu</title>
+    <style>
+        .css1 {
+            position: fixed;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: table;
+            width: 450px;
+            height: auto;
+        }
+
+        .btn1 {
+            box-shadow: 0 9px #999;
+            background-color: rgb(60, 73, 255);
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+            border-bottom-right-radius: 28px;
+            border-bottom-left-radius: 28px;
+            border: 4px solid rgb(78, 96, 150);
+            display: inline-block;
+            cursor: pointer;
+            color: rgb(255, 255, 255);
+            font-family: Arial;
+            font-size: 50px;
+            font-weight: bold;
+            /*padding: 35px 150px;*/
+            text-decoration: none;
+            text-shadow: rgb(40, 57, 102) 5px -3px 0px;
+            background-position: initial initial;
+            background-repeat: initial initial;
+            margin-bottom: 20px;
+            width: 450px;
+            height: 80px;
+            align-content: center;
+        }
+
+        .btn1:hover {
+            background-color: rgb(30, 73, 194);
+        }
+
+        .btn1:active {
+            background-color: rgb(30, 73, 194);
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+    </style>
+</head>
+
+<body style="background: url('Images/Space GIF - Right to left.gif');">
+    <span class="css1">
+        <input class="btn1" id="Button1" type="button" value="New Game" onclick="newGame()" />
+        <input class="btn1" id="Button2" type="button" value="Credits" onclick="credits()" />
+        <input class="btn1" id="Button3" type="button" value="Settings" onclick="settings()" />
+    </span>
+
+    <audio src="Sounds/somewhere-out-in-space.mp3" autoplay="autoplay"></audio>
+
+    <script>
+        const newGame = () => setTimeout(() => window.location = "new game.html", 200);
+        const credits = () => setTimeout(() => window.location = "credits.html", 200);
+        const settings = () => setTimeout(() => window.location = "settings.html", 200);
+
+        window.addEventListener('load', function () { // on page load
+            // Initialize local storage
+            localStorage.mainSpaceshipHSpeed = localStorage.mainSpaceshipHSpeed || 6;
+            localStorage.mainSpaceshipVSpeed = localStorage.mainSpaceshipVSpeed || 6;
+            localStorage.enemySpaceshipVSpeed = localStorage.enemySpaceshipVSpeed || 3;
+            localStorage.bestGameDate = localStorage.bestGameDate || "Never played before";
+            localStorage.bestGamePoints = localStorage.bestGamePoints || 0;
+            localStorage.spaceshipsWidth = localStorage.spaceshipsWidth || 50;
+        }, false);
+    </script>
+</body>
+
+</html>
