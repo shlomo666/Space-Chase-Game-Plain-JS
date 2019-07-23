@@ -1,0 +1,1 @@
+exports.uuid = () => Math.random(36).toString().slice(2);

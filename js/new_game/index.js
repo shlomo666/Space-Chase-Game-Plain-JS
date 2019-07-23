@@ -21,6 +21,9 @@ let {
 //-----------
 const Shoot = require('./Shoot');
 const ammoHandler = require('./ammo');
+const gameOverHandler = require('./gameOver');
+const { uuid } = require('./util');
+const http = require('./http');
 //-----------
 
 /** @type {Explosion[]} */
@@ -29,21 +32,28 @@ let explosions = []; // Array of active explosions
 // Current tick of interval
 let tick = 0;
 let points = 0;
+let startTime;
 /*------ the game starts at initDOM() --------*/
 
-let GameInterval;
+let GameInterval, keepAliveInterval;
 module.exports.startGame = () => {
     // Start Loop of game
     GameInterval = setInterval(MainLoop, 40);
+    startTime = Date.now();
+    const uid = localStorage.uid = localStorage.uid || uuid();
+    http.startGame(uid);
+    keepAliveInterval = setInterval(() => {
+        http.keepAlive(uid);
+    }, 10000);
 };
 
 let noShootLimit = false;
 events.noShootLimit = () => noShootLimit = !noShootLimit;
 
-let ghots = false;
+let ghost = false;
 events.ghost = () => {
-    ghots = !ghots;
-    mainSpaceship.image.changeOpacity(ghots ? 0.5 : 1);
+    ghost = !ghost;
+    mainSpaceship.image.changeOpacity(ghost ? 0.5 : 1);
 };
 
 events.ammo = () => {
@@ -124,7 +134,7 @@ const increasePoints = () => {
     }
     again();
 };
-const gameOver = () => !ghots && enemySpaceships.some(ai => ai.touches(mainSpaceship));
+const gameOver = () => !ghost && enemySpaceships.some(ai => ai.touches(mainSpaceship));
 
 //
 // Methods
@@ -253,21 +263,9 @@ function checkForEnemyClash() {
 
 function endOfGame() {
     clearInterval(GameInterval);
+    clearInterval(keepAliveInterval);
     backgroundSound.pause();
     flightSound.pause();
 
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.font = "100px Arial";
-    ctx.fillStyle = "Red";
-    ctx.textAlign = "center";
-    ctx.fillText("Game Over!", ctx.canvas.width / 2, ctx.canvas.height / 2 - 100);
-    const totalPoints = tick + points;
-    ctx.fillText("Total points: " + totalPoints.toString(), ctx.canvas.width / 2, ctx.canvas.height / 2 + 100);
-
-    var maxPoints = Number(localStorage.bestGamePoints);
-    if (maxPoints < totalPoints) {
-        var now = new Date();
-        localStorage.bestGameDate = now.toLocaleString();
-        localStorage.bestGamePoints = totalPoints;
-    }
+    gameOverHandler.handleGameOver(ctx, tick, points, (Date.now() - startTime) / 1000 | 0);
 }
