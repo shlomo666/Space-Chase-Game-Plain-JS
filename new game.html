@@ -1,53 +1,61 @@
-<canvas hidden="hidden" id="ctx" font="150px Arial" style="border:1px solid #000000; position:absolute;z-index:1;"></canvas>
-<canvas hidden="hidden" id="ctxBackgroundGIF" font="150px Arial" style="background: url('Images/Space GIF - Right to left.gif');border:1px solid #000000;position:absolute;z-index:0;"></canvas>
-<audio id="backgroundSound" src="Sounds/somewhere-out-in-space.mp3" autoplay="autoplay" loop="loop"></audio>
-<audio id="flightSound" src="Sounds/Flight Sound.mp3" autoplay="autoplay" loop="loop"></audio>
+<html>
 
-<script src="js/bundle/new_game.js"></script>
+<head>
+    <style>
+        .bodyClass {
+            background-image: radial-gradient(circle, #051937, #001e2f, #002021, #121e18, #1c1d19);
+        }
 
-<style>
-    .bodyClass {
-        background-image: radial-gradient(circle, #051937, #001e2f, #002021, #121e18, #1c1d19);        
-    }
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
 
-    .loader {
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 120px;
-        height: 120px;
-        -webkit-animation: spin 2s linear infinite;
         /* Safari */
-        animation: spin 2s linear infinite;
-    }
 
-    /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
 
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
         }
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
 
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-</style>
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-<title>Space Chase</title>
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <title>Space Chase</title>
 </head>
 
-<script src="js/bundle/new_game.js"></script>
+<body class="bodyClass" onload="setTimeout(() => initDOM().then(startGame), 200)">
+    <canvas hidden="hidden" id="ctx" font="150px Arial"
+        style="border:1px solid #000000; position:absolute;z-index:1;"></canvas>
+    <canvas hidden="hidden" id="ctxBackgroundGIF" font="150px Arial"
+        style="background: url('Images/Space GIF - Right to left.gif');border:1px solid #000000;position:absolute;z-index:0;"></canvas>
+    <audio id="backgroundSound" src="Sounds/somewhere-out-in-space.mp3" autoplay="autoplay" loop="loop"></audio>
+    <audio id="flightSound" src="Sounds/Flight Sound.mp3" autoplay="autoplay" loop="loop"></audio>
 
-<body class="bodyClass" onload="initDOM().then(startGame)">
     <h1 style="color:white">Loading...</h1>
     <div id="loader" class="loader"></div>
+
+
+    <script src="js/bundle/new_game.js"></script>
 </body>
+
+</html>
