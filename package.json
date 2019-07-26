@@ -7,7 +7,7 @@
     "build": "node_modules/.bin/webpack",
     "buildProd": "chmod +x pack.sh && ./pack.sh",
     "test": "echo \"Error: no test specified\" && exit 1", 
-    "pub": "cd production; npm version patch && npm publish --access public"
+    "pub": "npm run buildProd && cd production; npm version patch && npm publish --access public"
   },
   "author": "",
   "license": "ISC",

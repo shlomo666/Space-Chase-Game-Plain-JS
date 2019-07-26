@@ -32,14 +32,12 @@ let explosions = []; // Array of active explosions
 // Current tick of interval
 let tick = 0;
 let points = 0;
-let startTime;
 /*------ the game starts at initDOM() --------*/
 
 let GameInterval, keepAliveInterval;
 module.exports.startGame = () => {
     // Start Loop of game
     GameInterval = setInterval(MainLoop, 40);
-    startTime = Date.now();
     const uid = localStorage.uid = localStorage.uid || uuid();
     http.startGame(uid);
     keepAliveInterval = setInterval(() => {
@@ -267,5 +265,5 @@ function endOfGame() {
     backgroundSound.pause();
     flightSound.pause();
 
-    gameOverHandler.handleGameOver(ctx, tick, points, (Date.now() - startTime) / 1000 | 0);
+    gameOverHandler.handleGameOver(ctx, tick, points);
 }

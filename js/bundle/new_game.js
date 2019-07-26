@@ -329,7 +329,7 @@ exports.startGame = (uid) => {
     });
 };
 
-exports.endGame = async (name, uid, totalPoints, now, gameInSeconds) => {
+exports.endGame = async (name, uid, totalPoints, now) => {
     await fetch('/scores/gameover', {
         method: 'POST',
         body: JSON.stringify({
@@ -337,10 +337,9 @@ exports.endGame = async (name, uid, totalPoints, now, gameInSeconds) => {
             uid,
             result: {
                 score: totalPoints,
-                date: now,
-                "game-in-seconds": gameInSeconds
+                date: now
             },
-            signature: md5(uid + name + gameInSeconds + totalPoints + now.toISOString()).toString()
+            signature: md5(uid + name + totalPoints + now.toISOString()).toString()
         }), 
         headers: {
             'content-type': 'application/json'
@@ -598,8 +597,7 @@ const http = __webpack_require__(4);
 /** @param {CanvasRenderingContext2D} ctx */
 /** @param {Number} tick */
 /** @param {Number} points */
-/** @param {Number} gameInSeconds */
-exports.handleGameOver = async (ctx, tick, points, gameInSeconds) => {
+exports.handleGameOver = async (ctx, tick, points) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.font = "100px Arial";
     ctx.fillStyle = "Red";
@@ -618,7 +616,7 @@ exports.handleGameOver = async (ctx, tick, points, gameInSeconds) => {
     const uid = localStorage.uid;
     const name = exports.getNameFromUser();
     if (uid && name) {
-        await http.endGame(name, uid, totalPoints, now, gameInSeconds);
+        await http.endGame(name, uid, totalPoints, now);
     }
     const best = await http.getBest();
     ctx.font = "30px Arial";
@@ -926,14 +924,12 @@ let explosions = []; // Array of active explosions
 // Current tick of interval
 let tick = 0;
 let points = 0;
-let startTime;
 /*------ the game starts at initDOM() --------*/
 
 let GameInterval, keepAliveInterval;
 module.exports.startGame = () => {
     // Start Loop of game
     GameInterval = setInterval(MainLoop, 40);
-    startTime = Date.now();
     const uid = localStorage.uid = localStorage.uid || uuid();
     http.startGame(uid);
     keepAliveInterval = setInterval(() => {
@@ -1161,7 +1157,7 @@ function endOfGame() {
     backgroundSound.pause();
     flightSound.pause();
 
-    gameOverHandler.handleGameOver(ctx, tick, points, (Date.now() - startTime) / 1000 | 0);
+    gameOverHandler.handleGameOver(ctx, tick, points);
 }
 
 /***/ }),

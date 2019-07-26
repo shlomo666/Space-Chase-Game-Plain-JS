@@ -10,7 +10,7 @@ exports.startGame = (uid) => {
     });
 };
 
-exports.endGame = async (name, uid, totalPoints, now, gameInSeconds) => {
+exports.endGame = async (name, uid, totalPoints, now) => {
     await fetch('/scores/gameover', {
         method: 'POST',
         body: JSON.stringify({
@@ -18,10 +18,9 @@ exports.endGame = async (name, uid, totalPoints, now, gameInSeconds) => {
             uid,
             result: {
                 score: totalPoints,
-                date: now,
-                "game-in-seconds": gameInSeconds
+                date: now
             },
-            signature: md5(uid + name + gameInSeconds + totalPoints + now.toISOString()).toString()
+            signature: md5(uid + name + totalPoints + now.toISOString()).toString()
         }), 
         headers: {
             'content-type': 'application/json'

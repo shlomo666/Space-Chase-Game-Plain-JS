@@ -3,8 +3,7 @@ const http = require('./http');
 /** @param {CanvasRenderingContext2D} ctx */
 /** @param {Number} tick */
 /** @param {Number} points */
-/** @param {Number} gameInSeconds */
-exports.handleGameOver = async (ctx, tick, points, gameInSeconds) => {
+exports.handleGameOver = async (ctx, tick, points) => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.font = "100px Arial";
     ctx.fillStyle = "Red";
@@ -23,7 +22,7 @@ exports.handleGameOver = async (ctx, tick, points, gameInSeconds) => {
     const uid = localStorage.uid;
     const name = exports.getNameFromUser();
     if (uid && name) {
-        await http.endGame(name, uid, totalPoints, now, gameInSeconds);
+        await http.endGame(name, uid, totalPoints, now);
     }
     const best = await http.getBest();
     ctx.font = "30px Arial";
