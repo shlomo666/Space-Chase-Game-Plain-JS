@@ -1,1 +1,0 @@
-exports.path = __dirname + '/resources';

@@ -1,16 +1,20 @@
 #!/bin/sh
-
 node_modules/.bin/webpack
-mkdir -p production/resources
-rm -Rf production/resources
-mkdir production/resources
 
-cp index.html production/resources/
-cp "new game.html" production/resources/
-cp settings.html production/resources/
-cp credits.html production/resources/
-cp favicon.ico production/resources/
-cp -r Sounds production/resources/
-cp -r Images production/resources/
-mkdir -p production/resources/js
-cp -r js/bundle production/resources/js/
+res=production/resources/files;
+code=production/code/files;
+
+rm -Rf $res
+rm -Rf $code
+mkdir $res
+mkdir $code
+
+cp favicon.ico $res
+cp -r Sounds $res
+cp -r Images $res
+cp index.html $code
+cp "new game.html" $code
+cp settings.html $code
+cp credits.html $code
+mkdir "$code/js"
+cp -r js/bundle "$code/js/"

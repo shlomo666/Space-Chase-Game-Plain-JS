@@ -1,6 +1,6 @@
 {
-  "name": "@shlomo666/space-chase-static-files",
-  "version": "1.0.3",
+  "name": "@shlomo666/space-chase-static-files-resources",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

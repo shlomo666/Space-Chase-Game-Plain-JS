@@ -1,4 +1,5 @@
 Thumbs.db
 debug.log
 node_modules
-production/resources/
+production/resources/files
+production/code/files
